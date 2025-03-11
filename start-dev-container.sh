@@ -2,7 +2,7 @@
 
 set -e
 
-TOP="$(realpath "$(dirname "${BASH_SOURCE[0]}")")"
+TOP="$(readlink -f "$(dirname "${BASH_SOURCE[0]}")")"
 
 if docker container ls | grep -Eo "\sslac-buildroot-dev-container\$" > /dev/null; then
 	exit 0

@@ -58,8 +58,14 @@ The container mounts this directory as a volume, and the resulting build will be
 
 To run commands in this container, run `./run-docker-cmd.sh mycommand and stuff`.
 
-For example, to build the container you would run `./run-docker-cmd.sh ./buildroot/setup.sh`
+Example:
+```sh
+# Bootstrap buildroot; download the tarball, apply patches and build
+./run-docker-cmd.sh ./buildroot/setup.sh -v 2019.08 -a i686
 
+# After that, you can run make directly to rebuild the container as you need
+./run-docker-cmd.sh make -C buildroot/buildroot-2019.08-i686
+```
 
 ## Using the Containerized Toolchains
 

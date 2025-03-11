@@ -4,7 +4,20 @@ set -e
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
-while [ -n "$1" ]; do
+function usage {
+    echo "USAGE: setup.sh -v VERSION -a ARCH [--git REPO] [-b BRANCH] [--download-only]"
+	echo "  -v <version>      - Version to build (i.e. 2019.08)"
+	echo "  -a <arch>         - Arch to build for (i686, x86_64, zynq)"
+	echo "  --download-only   - Only download and do basic setup, don't build"
+	echo "  --git <repo>      - Clone GIT repository instead"
+	echo "  -b <branch>       - If cloning a git repo, checkout this ref after the fact"
+	echo "Examples:"
+	echo "  $0 -v 2019.08 -a x86_64"
+	echo "  $0 -v 2019.08 -a i686"
+    exit 1
+}
+
+while test $# -gt 0; do
     case "$1" in 
     -v)
         VERSION="$2"
@@ -30,25 +43,23 @@ while [ -n "$1" ]; do
 		REF="$2"
 		shift 2
 		;;
+	-h|--help)
+		usage
+		;;
     *)
         echo "Invalid option $a"
-        exit 1
+		usage
         ;;
     esac
 done
 
 if [ -z $VERSION ]; then
-    echo "USAGE: setup.sh 2019.08"
-	echo "  -v <version>      - Version to build (i.e. 2019.08)"
-	echo "  -a <arch>         - Arch to build for"
-	echo "  --download-only   - Only download and do basic setup, don't build"
-	echo "  --git <repo>      - Clone GIT repository instead"
-	echo "  -b <branch>       - If cloning a git repo, checkout this ref after the fact"
-    exit 1
+	usage
 fi
 
 if [ "$ARCH" != "zynq" ] && [ "$ARCH" != "i686" ] && [ "$ARCH" != "x86_64" ]; then
     echo "$ARCH is not a valid arch choice, valid options are i686, x86_64, zynq"
+	usage
     exit 1
 fi
 
