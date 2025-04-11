@@ -2,7 +2,7 @@
 set -e
 
 ARCHES="x86_64 i686 arm"
-VER="2019.08"
+VER="2025.02"
 
 while test $# -gt 0; do
     case $1 in
@@ -19,8 +19,8 @@ while test $# -gt 0; do
             echo "  -v version       : buildroot version"
             echo "  -a arch          : Target arch (i686, arm, x86_64)"
             echo "Examples:"
-            echo "  $0 -v 2019.08 -a x86_64"
-            echo "  $0 -v 2019.08 -a x86_64 -a i686"
+            echo "  $0 -v 2025.02 -a x86_64"
+            echo "  $0 -v 2025.02 -a x86_64 -a i686"
             exit 0
             ;;
         *)

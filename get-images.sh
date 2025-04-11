@@ -4,8 +4,8 @@ TOP="$(readlink -f "$(dirname "${BASH_SOURCE[0]}")")"
 
 function usage {
     echo "USAGE: $0 -v version -t tag [-r|--remote]"
-    echo "  -v version           : The buildroot version (i.e. 2019.08)"
-    echo "  -t tag               : The docker image tag (i.e. 2019.08-x86_64)"
+    echo "  -v version           : The buildroot version (i.e. 2025.02)"
+    echo "  -t tag               : The docker image tag (i.e. 2025.02-x86_64)"
     echo "  -r --remote          : Use remote docker container"
     exit 1
 }

@@ -1,4 +1,4 @@
-FROM fedora:30
+FROM rockylinux:9
 
 RUN dnf install -y make gcc gcc-c++ automake m4 autoconf git wget bzip2 which unzip file diffutils binutils patch gzip perl cpio rsync bc findutils \
     python elfutils-libelf-devel
@@ -20,7 +20,7 @@ RUN cd /build/; \
 	cd .. && rm -rf ./make-4.4.1 && rm make-4.4.1.tar.gz;
 
 # Build the requested target arch and copy to the final location
-ARG BUILDROOT_VERSION=2019.08
+ARG BUILDROOT_VERSION=2025.02
 ARG BUILDROOT_ARCH=x86_64
 ARG TOOLCHAIN_ONLY=0
 RUN PATH="/build/host/bin:$PATH" && /build/buildroot/setup.sh -v ${BUILDROOT_VERSION} -a ${BUILDROOT_ARCH} --toolchain-only ${TOOLCHAIN_ONLY}; \
