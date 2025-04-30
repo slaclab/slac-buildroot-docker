@@ -40,16 +40,15 @@ First, create the container (i.e. for i686):
 
 After the build is complete, use `get-images.sh` to extract the images from the container:
 ```
-./get-images.sh -t 2019.08 -t 2019.08-i686
+./get-images.sh -t 2025.02 -t 2025.02-i686
 ```
 
-The resulting images will be in `images/buildroot-2019.08-i686`.
+The resulting images will be in `images/buildroot-2025.02-i686`.
 
 ### Development
 
 `Dockerfile.dev` defines a development container that can be used to compile the buildroot images for iterative development. 
-Due to the age of these images, they generally will not compile on modern Linux distros, but they will build in this container (which is based on Fedora 30). 
-They should also build fine on Rocky 9/RHEL9.
+Due to the age of these images, they generally will not compile on modern Linux distros, but they will build in this container (which is based on Rocky 9).
 
 To bootstrap a development container, run `./start-dev-container.sh`. 
 This will build the docker image and launch the container under the name slac-buildroot-dev-container. 
@@ -61,10 +60,10 @@ To run commands in this container, run `./run-docker-cmd.sh mycommand and stuff`
 Example:
 ```sh
 # Bootstrap buildroot; download the tarball, apply patches and build
-./run-docker-cmd.sh ./buildroot/setup.sh -v 2019.08 -a i686
+./run-docker-cmd.sh ./buildroot/setup.sh -v 2025.02 -a i686
 
 # After that, you can run make directly to rebuild the container as you need
-./run-docker-cmd.sh make -C buildroot/buildroot-2019.08-i686
+./run-docker-cmd.sh make -C buildroot/buildroot-2025.02-i686
 ```
 
 ## Using the Containerized Toolchains
@@ -73,7 +72,7 @@ The buildroot paths within the container match what's found on S3DF. Thus, most 
 
 The top of the buildroot directory is located at `/sdf/sw/epics/package/linuxRT/buildroot-<version>`
 
-For buildroot-2019.08 and x86_64, GCC would be at: `/sdf/sw/epics/package/linuxRT/buildroot-2019.08/host/linux-x86_64/x86_64/bin/x86_64-buildroot-linux-gnu-gcc`
+For buildroot-2025.02 and x86_64, GCC would be at: `/sdf/sw/epics/package/linuxRT/buildroot-2025.02/host/linux-x86_64/x86_64/bin/x86_64-buildroot-linux-gnu-gcc`
 
 ## How It Works
 
