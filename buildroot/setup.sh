@@ -6,14 +6,14 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 
 function usage {
     echo "USAGE: setup.sh -v VERSION -a ARCH [--git REPO] [-b BRANCH] [--download-only]"
-	echo "  -v <version>      - Version to build (i.e. 2019.08)"
+	echo "  -v <version>      - Version to build (i.e. 2025.02)"
 	echo "  -a <arch>         - Arch to build for (i686, x86_64, zynq)"
 	echo "  --download-only   - Only download and do basic setup, don't build"
 	echo "  --git <repo>      - Clone GIT repository instead"
 	echo "  -b <branch>       - If cloning a git repo, checkout this ref after the fact"
 	echo "Examples:"
-	echo "  $0 -v 2019.08 -a x86_64"
-	echo "  $0 -v 2019.08 -a i686"
+	echo "  $0 -v 2025.02 -a x86_64"
+	echo "  $0 -v 2025.02 -a i686"
     exit 1
 }
 
@@ -64,6 +64,9 @@ if [ "$ARCH" != "zynq" ] && [ "$ARCH" != "i686" ] && [ "$ARCH" != "x86_64" ]; th
 fi
 
 case $VERSION in
+    2025.02)
+        FILE="buildroot-2025.02"
+        ;;
     2019.08)
         FILE="buildroot-2019.08.1"
         ;;
@@ -78,14 +81,14 @@ esac
 DIR="buildroot-$VERSION-$ARCH"
 
 mkdir -p download
-if [ ! -f download/$FILE.tar.bz2 ] && [ -z $REPO ]; then
-    wget -O "download/$FILE.tar.bz2" "https://buildroot.org/downloads/$FILE.tar.bz2"
+if [ ! -f download/$FILE.tar.gz ] && [ -z $REPO ]; then
+    wget -O "download/$FILE.tar.gz" "https://buildroot.org/downloads/$FILE.tar.gz"
 fi
 
 # Extract our tarball or clone our GIT repo
 if [ ! -d "$DIR" ]; then
 	if [ -z $REPO ]; then
-	    tar -xf "download/$FILE.tar.bz2"
+	    tar -xf "download/$FILE.tar.gz"
     	mv "$FILE" "$DIR"
 	else
 		git clone -b "$REF" "$REPO" "$DIR" 
