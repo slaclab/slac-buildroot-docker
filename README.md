@@ -40,7 +40,7 @@ First, create the container (i.e. for i686):
 
 After the build is complete, use `get-images.sh` to extract the images from the container:
 ```
-./get-images.sh -t 2025.02 -t 2025.02-i686
+./get-images.sh -v 2025.02 -t 2025.02-i686
 ```
 
 The resulting images will be in `images/buildroot-2025.02-i686`.
