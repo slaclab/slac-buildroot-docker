@@ -4,3 +4,4 @@ buildroot/buildroot-2016.11.1-*
 buildroot/download
 buildroot/host
 images/
+*.swp
