@@ -124,10 +124,10 @@ ulimit -n 8192 || true
 
 if [ "$TOOLCHAIN" == "1" ]; then
 	# Build the toolchain *only*. That's what we care about :)
-	make toolchain -j$(nproc)
+	make toolchain
 else
 	# Build everything
-	make -j$(nproc)
+	make
 fi
 
 popd > /dev/null
