@@ -2,7 +2,25 @@
 
 This repository contains dockerized build infrastructure for SLAC's buildroot images and their associated toolchains.
 
-## Pulling Pre-built Containers
+## Building the Toolchain and Disk Image
+
+To build the images locally from scratch, follow this guide.
+
+First, create the container (i.e. for i686):
+```
+./create-container.sh -a i686
+```
+
+After the build is complete, use `get-images.sh` to extract the images from the container:
+```
+./get-images.sh -t 2019.08 -t 2019.08-i686
+```
+
+The resulting images will be in `images/buildroot-2019.08-i686`.
+
+For other target architectures/systems, swap i686 for x86_64 or zynq.
+
+## Pre-built Containers
 
 Prebuilt containers can be obtained from GitHub's package registry as follows:
 
@@ -28,22 +46,6 @@ For example, to extract buildroot-2019.08 x86_64 image from the pre-built contai
 ```sh
 ./get-images.sh -r -v 2019.08 -t 2019.08-x86_64
 ```
-
-## Building
-
-To build the images locally from scratch, follow this guide.
-
-First, create the container (i.e. for i686):
-```
-./create-container.sh -a i686
-```
-
-After the build is complete, use `get-images.sh` to extract the images from the container:
-```
-./get-images.sh -t 2019.08 -t 2019.08-i686
-```
-
-The resulting images will be in `images/buildroot-2019.08-i686`.
 
 ### Development
 
