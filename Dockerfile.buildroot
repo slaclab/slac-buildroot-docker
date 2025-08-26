@@ -4,10 +4,12 @@ RUN dnf install -y make gcc gcc-c++ automake m4 autoconf git wget bzip2 which un
     python elfutils-libelf-devel
 
 RUN mkdir -p /build/buildroot
+RUN mkdir -p /build/.git
 
 ARG USER=0
 ARG GROUP=0
 COPY --chown=$USER:$GROUP buildroot/ /build/buildroot/
+COPY --chown=$USER:$GROUP .git/ /build/.git/
 
 # Big hack: make 4.3 introduced a serious regression that renders buildroot inoperable. Let's build make 4.4 to work around this.
 RUN cd /build/; \
