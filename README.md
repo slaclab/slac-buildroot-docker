@@ -8,7 +8,7 @@ To build the images locally from scratch, follow this guide.
 
 First, create the container (i.e. for i686):
 ```
-./create-container.sh -a i686
+./create-container.sh -v 2025.02 -a i686
 ```
 
 After the build is complete, use `get-images.sh` to extract the images from the container:
