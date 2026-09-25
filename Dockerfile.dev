@@ -1,4 +1,4 @@
-FROM fedora:30
+FROM rockylinux:9
 
 RUN dnf install -y make gcc gcc-c++ automake m4 autoconf git wget bzip2 which unzip file diffutils binutils patch gzip perl cpio rsync bc findutils \
     python elfutils-libelf-devel hostname
@@ -12,14 +12,14 @@ COPY --chown=$USER:$GROUP buildroot/ /build/buildroot/
 COPY --chown=$USER:$GROUP .git/ /build/.git/
 
 # Big hack: make 4.3 introduced a serious regression that renders buildroot inoperable. Let's build make 4.4 to work around this.
-RUN cd /build/; \
-    mkdir -p host; \
-    cd host; \
-    wget https://ftp.gnu.org/gnu/make/make-4.4.1.tar.gz; \
-    tar -xf make-4.4.1.tar.gz; \
-    cd make-4.4.1 && ./configure --prefix="/build/host"; \
-    make install; \
-	cd .. && rm -rf ./make-4.4.1 && rm make-4.4.1.tar.gz;
+#RUN cd /build/; \
+#    mkdir -p host; \
+#    cd host; \
+#    wget https://ftp.gnu.org/gnu/make/make-4.4.1.tar.gz; \
+#    tar -xf make-4.4.1.tar.gz; \
+#    cd make-4.4.1 && ./configure --prefix="/build/host"; \
+#    make install; \
+#	cd .. && rm -rf ./make-4.4.1 && rm make-4.4.1.tar.gz;
 
 
 
