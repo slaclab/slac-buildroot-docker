@@ -17,6 +17,7 @@ while test $# -gt 0; do
             ;;
         -t|--toolchain-only)
             TCO=1
+            shift 2
             ;;
         -h|--help)
             echo "USAGE: $0 -v version -a arch"

@@ -4,16 +4,22 @@ This repository contains dockerized build infrastructure for SLAC's buildroot im
 
 ## Building the Toolchain and Disk Image
 
-To build the images locally from scratch, follow this guide.
+To build the images locally from scratch, follow this guide. You may want to build locally from scratch when
+building for a release, i.e not fixing a bug.
 
-First, create the container (i.e. for i686):
+First, initialize your git area:
+```sh
+git submodule init && git submodule update --recursive
 ```
+
+Second, create the container and build buildroot images (i.e. for i686):
+```sh
 ./create-container.sh -v 2025.02 -a i686
 ```
 
-After the build is complete, use `get-images.sh` to extract the images from the container:
-```
-./get-images.sh -t 2025.02 -t 2025.02-i686
+Third, use `get-images.sh` to extract the images from the container:
+```sh
+./get-images.sh -v 2025.02 -t 2025.02-i686
 ```
 
 The resulting images will be in `images/buildroot-2025.02-i686`.
@@ -49,13 +55,23 @@ For example, to extract buildroot-2019.08 x86_64 image from the pre-built contai
 
 ### Development
 
-`Dockerfile.dev` defines a development container that can be used to compile the buildroot images for iterative development. 
+`Dockerfile.dev` defines a development container that can be used to compile the buildroot images for iterative development, i.e bug fixing.
 Due to the age of these images, they generally will not compile on modern Linux distros, but they will build in this container (which is based on Rocky 9).
 
-To bootstrap a development container, run `./start-dev-container.sh`. 
-This will build the docker image and launch the container under the name slac-buildroot-dev-container. 
+To bootstrap a development container, you need to create a docker container.
 
-The container mounts this directory as a volume, and the resulting build will be in the buildroot directory.
+Make sure you're not reusing an old docker container:
+
+```sh
+$ docker ps -a | grep slac-buildroot-dev-container
+$ docker rm <hash>  # if any
+```
+
+Now run `./start-dev-container.sh`.
+This will build the docker image, launch the container under the name slac-buildroot-dev-container, and mount your buildroot directory
+as a volume.
+
+The resulting build will be in the buildroot directory.
 
 To run commands in this container, run `./run-docker-cmd.sh mycommand and stuff`.
 
@@ -66,6 +82,14 @@ Example:
 
 # After that, you can run make directly to rebuild the container as you need
 ./run-docker-cmd.sh make -C buildroot/buildroot-2025.02-i686
+```
+
+You can always run a bash shell in the container. This way, you can run buildroot commands like you normally would.
+```sh
+$ docker ps -a | grep slac-buildroot-dev-container
+83b46d40fe3a   slac-buildroot-dev   "bash"    3 hours ago    Up 3 hours                          slac-buildroot-dev-container
+$ docker exec -it 83b46d40fe3a bash
+[root@83b46d40fe3a slac-buildroot-docker]#
 ```
 
 ## Using the Containerized Toolchains
