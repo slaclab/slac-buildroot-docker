@@ -82,13 +82,13 @@ DIR="buildroot-$VERSION-$ARCH"
 
 mkdir -p download
 if [ ! -f download/$FILE.tar.gz ] && [ -z $REPO ]; then
-    wget -O "download/$FILE.tar.gz" "https://buildroot.org/downloads/$FILE.tar.bz2"
+    wget -O "download/$FILE.tar.gz" "https://buildroot.org/downloads/$FILE.tar.gz"
 fi
 
 # Extract our tarball or clone our GIT repo
 if [ ! -d "$DIR" ]; then
 	if [ -z $REPO ]; then
-	    tar -xf "download/$FILE.tar.bz2"
+	    tar -xf "download/$FILE.tar.gz"
     	mv "$FILE" "$DIR"
 	else
 		git clone -b "$REF" "$REPO" "$DIR" 
